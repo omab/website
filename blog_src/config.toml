@@ -1,0 +1,28 @@
+baseURL = "http://matisaguirre.net/blog"
+languageCode = "en-us"
+title = "Matías Aguirre"
+theme = "hemingway"
+copyright = "&copy; <a href=\"https://github.com/omab\">Matías Aguirre</a> 2017"
+pygmentsuseclasses = true
+
+[params]
+
+[params.highlight]
+style = "github"
+languages = ["ruby", "bash"]
+
+[[params.social]]
+url = "https://github.com/omab"
+fa_icon = "fa-github"
+
+[[params.social]]
+url = "https://twitter.com/linuxaddict"
+fa_icon = "fa-twitter"
+
+[[params.social]]
+url = "https://uy.linkedin.com/in/matiasaguirre"
+fa_icon = "fa-linkedin"
+
+[[params.social]]
+url = "/index.xml"
+fa_icon = "fa-rss"

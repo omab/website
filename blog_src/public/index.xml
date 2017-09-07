@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Matías Aguirre</title>
-    <link>/</link>
+    <link>/blog/</link>
     <description>Recent content on Matías Aguirre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/omab&#34;&gt;Matías Aguirre&lt;/a&gt; 2017</copyright>
     <lastBuildDate>Thu, 07 Sep 2017 12:50:46 -0300</lastBuildDate>
     
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Docker on Freebsd</title>
-      <link>/posts/docker-on-freebsd/</link>
+      <link>/blog/posts/docker-on-freebsd/</link>
       <pubDate>Thu, 07 Sep 2017 12:50:46 -0300</pubDate>
       
-      <guid>/posts/docker-on-freebsd/</guid>
+      <guid>/blog/posts/docker-on-freebsd/</guid>
       <description>Docker on FreeBSD is not an easy ride, several attempts failed to bring the popular container platform to this operating system. We have the outdated port, jetpack, and the popular Docker on Freebsd wiki article. But still, the process is not easy, and prone to failures.
 Jails is the popular choice to isolate applications in FreeBSD, it&amp;rsquo;s been a part of the operating system since FreeBSD 4.X, so it&amp;rsquo;s very robust and has a long story already.</description>
     </item>

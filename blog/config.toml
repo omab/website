@@ -1,4 +1,4 @@
-baseURL = "http://matisaguirre.net/blog"
+baseURL = "https://matisaguirre.net/blog"
 languageCode = "en-us"
 title = "Matías Aguirre"
 theme = "hemingway"

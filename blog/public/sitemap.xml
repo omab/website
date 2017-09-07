@@ -3,29 +3,29 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://matisaguirre.net/blog/posts/docker-on-freebsd/</loc>
+    <loc>https://matisaguirre.net/blog/posts/docker-on-freebsd/</loc>
     <lastmod>2017-09-07T12:50:46-03:00</lastmod>
   </url>
   
   <url>
-    <loc>http://matisaguirre.net/blog/categories/</loc>
+    <loc>https://matisaguirre.net/blog/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://matisaguirre.net/blog/</loc>
-    <lastmod>2017-09-07T12:50:46-03:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://matisaguirre.net/blog/posts/</loc>
+    <loc>https://matisaguirre.net/blog/</loc>
     <lastmod>2017-09-07T12:50:46-03:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://matisaguirre.net/blog/tags/</loc>
+    <loc>https://matisaguirre.net/blog/posts/</loc>
+    <lastmod>2017-09-07T12:50:46-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matisaguirre.net/blog/tags/</loc>
     <priority>0</priority>
   </url>
   

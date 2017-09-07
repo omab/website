@@ -1,7 +1,6 @@
 ---
 title: "Docker on Freebsd"
-date: 2017-09-04T21:08:45-03:00
-draft: true
+date: 2017-09-07T12:50:46-03:00
 ---
 
 Docker on FreeBSD is not an easy ride, several attempts failed to

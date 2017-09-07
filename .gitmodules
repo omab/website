@@ -1,3 +1,3 @@
 [submodule "blog_src/themes/hemingway"]
-	path = blog/themes/hemingway
+	path = blog_src/themes/hemingway
 	url = https://github.com/tanksuzuki/hemingway.git

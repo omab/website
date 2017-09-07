@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Matías Aguirre</title>
-    <link>https://matisaguirre.net/blog/categories/</link>
+    <link>/categories/</link>
     <description>Recent content in Categories on Matías Aguirre</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/omab&#34;&gt;Matías Aguirre&lt;/a&gt; 2017</copyright>
     
-	<atom:link href="https://matisaguirre.net/blog/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>

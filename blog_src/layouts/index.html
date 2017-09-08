@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html{{ with .Site.LanguageCode }} lang="{{ . }}"{{ end }}>
   <head>
-	<meta name="generator" content="Hugo 0.26" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -10,9 +9,7 @@
     <meta name="msapplication-navbutton-color" content="#8d99ae">
     <meta name="apple-mobile-web-app-status-bar-style" content="#8d99ae">
 
-    <title>Matías Aguirre</title>
-
-    
+    <title>{{ .Title }}{{ if eq .IsHome false }} | {{ .Site.Title }}{{ end }}</title>
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -22,71 +19,13 @@
     <link rel="stylesheet"
           href="https://gitcdn.link/repo/Chalarangelo/mini.css/master/dist/mini-default.min.css">
 
-    
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
-    
+    {{ with .Site.Params.highlight.style }}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/{{ . }}.min.css">
+    {{ else }}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
+    {{ end }}
 
-    <style>
-     html, body {
-       background: #8d99ae;
-       font-size: 13px;
-     }
-
-     @media (max-width: 767px) {
-       #links a {
-         font-size: 6em;
-       }
-     }
-
-     @media (min-width: 768px) {
-       #links a {
-         font-size: 14em;
-       }
-     }
-
-     @media (min-width: 1280px) {
-       #links a {
-         font-size: 16em;
-       }
-     }
-
-     a, a:visited {
-       text-decoration: none;
-       color: #2b2d42;
-     }
-
-     #links {
-       margin-top: 10vh;
-       display: flex;
-       align-items: center;
-       justify-content: center;
-       text-align: center;
-     }
-
-     #articles {
-       margin: 5rem 15%;
-     }
-
-     #articles .row {
-       width: 100%;
-       border-bottom: 1px dotted #a7b3c8; 
-     }
-
-     #articles h2 {
-       font-variant: small-caps;
-       margin: 0 0 1rem;
-     }
-
-     #articles .title a {
-       font-size: 1.5em;
-       font-variant: small-caps;
-     }
-
-     #articles .date {
-       font-size: 1.2em;
-       text-align: right;
-     }
-    </style>
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/home.css">
   </head>
   <body>
     <div class="container">
@@ -117,18 +56,18 @@
           <h2>Articles</h2>
         </div>
         <div class="item col-sm-12">
-          
+          {{ range .Data.Pages }}
           <div class="row">
             <div class="item col-sm-8 title">
-               <a href="/blog/posts/docker-on-freebsd/">Docker on Freebsd</a>
+              {{ if .Draft }}[draft]{{ end }} <a href="{{ .Permalink }}">{{ .Title }}</a>
             </div>
             <div class="item col-sm-4 date">
-              <a href="/blog/posts/docker-on-freebsd/">
-                September 7, 2017
+              <a href="{{ .Permalink }}">
+                {{ .Date.Format "January 2, 2006" }}
               </a>
             </div>
           </div>
-          
+          {{ end }}
         </div>
       </div>
     </div>

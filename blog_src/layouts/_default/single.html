@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html{{ with .Site.LanguageCode }} lang="{{ . }}"{{ end }}>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#8d99ae">
+    <meta name="msapplication-navbutton-color" content="#8d99ae">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#8d99ae">
+
+    <title>{{ .Title }}{{ if eq .IsHome false }} | {{ .Site.Title }}{{ end }}</title>
+
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/style.css">
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+          crossorigin="anonymous">
+
+    {{ with .Site.Params.highlight.style }}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/{{ . }}.min.css">
+    {{ else }}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
+    {{ end }}
+  </head>
+  <body>
+    {{ partial "nav" . }}
+
+    <section class="section">
+      <div class="container">
+        <h1 class="title">{{ .Title }}</h1>
+        <h2 class="subtitle is-6">{{ .Date.Format "January 2, 2006" }}</h2>
+        <div class="content">
+          {{ .Content }}
+        </div>
+      </div>
+    </section>
+
+    {{ partial "disqus" . }}
+    {{ partial "footer" . }}
+  </body>
+</html>

@@ -1,0 +1,59 @@
+html, body {
+    background: #8d99ae;
+    font-size: 13px;
+}
+
+@media (max-width: 767px) {
+    #links a {
+        font-size: 6em;
+    }
+}
+
+@media (min-width: 768px) {
+    #links a {
+        font-size: 14em;
+    }
+}
+
+@media (min-width: 1280px) {
+    #links a {
+        font-size: 16em;
+    }
+}
+
+a, a:visited {
+    text-decoration: none;
+    color: #2b2d42;
+}
+
+#links {
+    margin-top: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#articles {
+    margin: 5rem 15%;
+}
+
+#articles .row {
+    width: 100%;
+    border-bottom: 1px dotted #a7b3c8; // #c0cce1;
+}
+
+#articles h2 {
+    font-variant: small-caps;
+    margin: 0 0 1rem;
+}
+
+#articles .title a {
+    font-size: 1.5em;
+    font-variant: small-caps;
+}
+
+#articles .date {
+    font-size: 1.2em;
+    text-align: right;
+}

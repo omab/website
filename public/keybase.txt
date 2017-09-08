@@ -1,0 +1,65 @@
+==================================================================
+https://keybase.io/omab
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://matiasaguirre.net
+  * I am omab (https://keybase.io/omab) on keybase.
+  * I have a public key with fingerprint B9D6 8C07 642E 79B4 6CC6  26A6 BA94 DFB2 B7E6 6307
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "b9d68c07642e79b46cc626a6ba94dfb2b7e66307",
+            "host": "keybase.io",
+            "key_id": "ba94dfb2b7e66307",
+            "uid": "ab18b2b63b060925b20c91b7bb7e9400",
+            "username": "omab"
+        },
+        "revoke": {
+            "sig_ids": [
+                "b1e0c3e5794e65380198e7954f85adb4c3d813a9b2310692535e01d530cdcf260f"
+            ]
+        },
+        "service": {
+            "hostname": "matiasaguirre.net",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1416080653,
+    "expire_in": 157680000,
+    "prev": "d523f551f737931f1bc50441546fdd50496e53286f8f652828e32e34888dcffe",
+    "seqno": 9,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1
+
+owFlUj1rVEEUfa7fAdEUForVFFZLmO83b22s/APaSVzm485miPve+t7LJiEEW8EY
+UkQiWGihYGNjI9hZ26QSOxsR/As2emeJldPMzL3nnnPu5R5cOl0Mlj8dfv/w8ac/
+f+rLL1fcm7y/vkNcE7bJaIesw+KKqZ5AO2tT3ZMRcVXQxtNSSw5l5aT2XnNttbOV
+DNFxV4LWgpZkSNaaLlcgjbMdrKQGY/gZp5B5/sdvLBLWMYNhLRzVtOLKceor5kqH
+yEpSmoEdtLWdAqKbqXVkd0hamDfrkO12aYIKHRndJ44B9QJUWUnQShjKKoOmlYxG
+2eCkF8EwYSvHBaMatYQCyoIS1AcfuaaRrCI3qs2TX5Dnlk6Up7ZPtrOTjdS2sFJD
+j8ZmbdM3vnmI6bW+n42ys357luGb4MYnRGOX6oBDxYI5tF1qajJiiPR9ysxMMk0N
+RcNDAluz1MI4ZYQqtaF4sgzMkTIoLqJSLJairASLzHlFpWRK6hgCPisNSnCjo4la
+ccMNCA5CGmOwvQgkt/aobsioQpt2chk5cXq17TdaILtLT+6cKZYHxbmzg7wXxdLF
+K/+WZfy4eNXtka/TZzePnl57+fbPrdsvvh3vQ/H68Ojq3vHvg9ULz9/dfbPlfuzf
++PzgLw==
+=7U5N
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/omab
+
+==================================================================

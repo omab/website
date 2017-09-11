@@ -1,0 +1,72 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#8d99ae">
+<meta name="msapplication-navbutton-color" content="#8d99ae">
+<meta name="apple-mobile-web-app-status-bar-style" content="#8d99ae">
+
+<meta name="keywords" content="{{ delimit .Keywords ", " }}">
+
+<!-- open graph -->
+<meta property="og:title" content="{{ .Title }}{{ if eq .IsHome false }} | {{ .Site.Title }}{{ end }}">
+
+<meta property="og:description" content="{{ if eq .IsHome false }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+
+<meta property="og:site_name" content="{{ .Site.Title }}" />
+
+<meta property="og:url" content="{{ .Permalink }}" />
+
+<meta property="og:locale" content="{{ .Site.LanguageCode }}">
+
+{{ if .IsPage }}
+  {{ $permalink := .Permalink }}
+  {{ $siteSeries := .Site.Taxonomies.series }}
+  {{ with .Params.series }}
+    {{ range $name := . }}
+      {{ $series := index $siteSeries $name }}
+      {{ range $page := first 6 $series.Pages }}
+        {{ if ne $page.Permalink $permalink }}
+          <meta property="og:see_also" content="{{ $page.Permalink }}" />
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  <meta property="og:type" content="article" />
+  <meta property="article:modified_time" content="{{ .Date }}" />
+  <meta property="article:section" content="{{ .Section }}" />
+  <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" | safeHTML }}" />
+  {{ range .Params.tags }}
+    <meta property="article:tag" content="{{ . }}" />
+  {{ end }}
+{{ else }}
+  <meta property="og:type" content="blog" />
+{{ end }}
+<meta property="og:image" content="{{ .Site.Params.og_image }}" />
+<meta property="og:image:url" content="{{ .Site.Params.og_image }}" />
+
+<!-- twitter -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image:src" content="{{ .Site.Params.og_image }}" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="{{ .Title }}"/>
+<meta name="twitter:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ end }}{{ end }}"/>
+<meta name="twitter:domain" content="{{ .Site.Title }}"/>
+<meta name="twitter:creator" content="{{ .Site.Params.author }}"/>
+
+<title>{{ .Title }}{{ if eq .IsHome false }} | {{ .Site.Title }}{{ end }}</title>
+
+{{ if eq .IsHome false }}
+  <link rel="stylesheet" href="{{ .Site.BaseURL }}css/style.css">
+{{ end }}
+
+<link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous">
+
+{{ with .Site.Params.highlight.style }}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/{{ . }}.min.css">
+{{ else }}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
+{{ end }}

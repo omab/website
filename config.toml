@@ -1,6 +1,6 @@
 baseURL = "/"
 languageCode = "en-us"
-title = "Matías Aguirre memory dump"
+title = "Matías Aguirre"
 theme = "hemingway"
 copyright = "&copy; <a href=\"https://github.com/omab\">Matías Aguirre</a> 2017"
 pygmentsuseclasses = true
@@ -11,7 +11,7 @@ category = "categories"
 
 [params]
 author = "Matías Aguirre"
-description = "Matías Aguirre memory dump"
+description = "Matías Aguirre"
 og_image = "/me-small.png"
 
 [params.highlight]

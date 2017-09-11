@@ -1,6 +1,13 @@
 ---
 title: "Docker on Freebsd"
 date: 2017-09-07T12:50:46-03:00
+categories: [development]
+tags: [docker, freebsd, virtualization]
+description: Running Docker on FreeBSD is not an easy ride, but it's doable
+keywords:
+- freebsd
+- docker
+- virtualization
 ---
 
 Docker on FreeBSD is not an easy ride, several attempts failed to

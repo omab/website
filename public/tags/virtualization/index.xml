@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Matías Aguirre memory dump</title>
-    <link>/</link>
-    <description>Recent content on Matías Aguirre memory dump</description>
+    <title>Virtualization on Matías Aguirre memory dump</title>
+    <link>/tags/virtualization/</link>
+    <description>Recent content in Virtualization on Matías Aguirre memory dump</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/omab&#34;&gt;Matías Aguirre&lt;/a&gt; 2017</copyright>
     <lastBuildDate>Thu, 07 Sep 2017 12:50:46 -0300</lastBuildDate>
     
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/virtualization/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on Matías Aguirre</title>
+    <title>Categories on Matías Aguirre memory dump</title>
     <link>/categories/</link>
-    <description>Recent content in Categories on Matías Aguirre</description>
+    <description>Recent content in Categories on Matías Aguirre memory dump</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/omab&#34;&gt;Matías Aguirre&lt;/a&gt; 2017</copyright>
     
 	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Development</title>
+      <link>/categories/development/</link>
+      <pubDate>Thu, 07 Sep 2017 12:50:46 -0300</pubDate>
+      
+      <guid>/categories/development/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

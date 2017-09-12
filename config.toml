@@ -4,6 +4,7 @@ title = "Matías Aguirre"
 theme = "hemingway"
 copyright = "&copy; <a href=\"https://github.com/omab\">Matías Aguirre</a> 2017"
 pygmentsuseclasses = true
+enableRobotsTXT = true
 
 [taxonomies]
 tag = "tags"

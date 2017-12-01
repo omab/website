@@ -1,59 +1,83 @@
 html, body {
-    background: #8d99ae;
+    background: #ffffff;
     font-size: 13px;
+    height: 100vh;
+    min-height: 100vh;
+    color: #3a4a4a;
+    font-family: "PT Sans", sans-serif;
 }
 
-@media (max-width: 767px) {
-    #links a {
-        font-size: 6em;
-    }
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Amaranth", sans-serif;
+    letter-spacing: .1em;
 }
 
-@media (min-width: 768px) {
-    #links a {
-        font-size: 14em;
-    }
+h1 {
+    font-size: 3em;
+    text-transform: uppercase;
 }
 
-@media (min-width: 1280px) {
-    #links a {
-        font-size: 16em;
-    }
+h2 {
+    font-variant: small-caps;
+    margin-bottom: 2rem;
 }
 
-a, a:visited {
+a, a:visited, a:hover {
+    color: #3a4a4a;
     text-decoration: none;
-    color: #2b2d42;
 }
 
-#links {
-    margin-top: 10vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+a:hover {
+    font-weight: bold;
 }
 
-#articles {
-    margin: 5rem 15%;
+.header {
+    background: #faf7f6;
 }
 
-#articles .row {
-    width: 100%;
-    border-bottom: 1px dotted #a7b3c8; // #c0cce1;
+.content {
+    background: #f1ebe8;
 }
 
-#articles h2 {
+.header, .content {
+    padding: 2rem;
+}
+
+.middle {
+    padding-top: 20vh;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.card-text {
+    text-align: justify;
+    font-size: 1.1em;
+    line-height: 1.8em;
+}
+
+.card-title {
     font-variant: small-caps;
-    margin: 0 0 1rem;
+    font-weight: bold;
 }
 
-#articles .title a {
+.me {
+    margin-top: 5rem;
+}
+
+.me-description {
     font-size: 1.5em;
+    line-height: 1.7em;
     font-variant: small-caps;
+    text-align: justify;
 }
 
-#articles .date {
-    font-size: 1.2em;
+.me-social a {
+    font-size: 3rem;
+}
+
+.read-more {
     text-align: right;
+    text-transform: uppercase;
 }

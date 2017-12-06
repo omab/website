@@ -9,4 +9,7 @@ run:
 		--bind=0.0.0.0 \
 		--baseUrl=http://`ifconfig ${IFACE} | grep "inet.*broadcast.*\.255" | awk '{ print $$2 }'`/
 
-.PHONY: run build
+deploy:
+	@ rsync -avz --progress . matiasaguirre.net:website
+
+.PHONY: run build deploy

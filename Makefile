@@ -4,10 +4,7 @@ build:
 	@ hugo
 
 run:
-	@ hugo server \
-		-D \
-		--bind=0.0.0.0 \
-		--baseUrl=http://`ifconfig ${IFACE} | grep "inet.*broadcast.*\.255" | awk '{ print $$2 }'`/
+	@ hugo server
 
 deploy:
 	@ rsync -avz --progress . matiasaguirre.net:website

@@ -73,8 +73,22 @@ a:hover {
     text-align: justify;
 }
 
+.me-social {
+    width: 100%;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
 .me-social a {
-    font-size: 3rem;
+    padding: .3em;
+}
+
+.me-social a:first-child {
+    padding-left: 0em;
+}
+
+.me-social a:last-child {
+    padding-right: 0em;
 }
 
 .read-more {

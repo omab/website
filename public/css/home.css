@@ -43,10 +43,6 @@ a:hover {
     padding: 2rem;
 }
 
-.middle {
-    padding-top: 20vh;
-}
-
 .full-height {
     height: 100%;
 }
@@ -60,10 +56,6 @@ a:hover {
 .card-title {
     font-variant: small-caps;
     font-weight: bold;
-}
-
-.me {
-    margin-top: 5rem;
 }
 
 .me-description {
@@ -94,4 +86,18 @@ a:hover {
 .read-more {
     text-align: right;
     text-transform: uppercase;
+}
+
+.middle {
+    padding-top: 15vh;
+}
+
+@media (min-width: 992px) {
+    .middle {
+        padding-top: 20vh;
+    }
+
+    .me {
+        margin-top: 5rem;
+    }
 }

@@ -47,6 +47,10 @@ a:hover {
     height: 100%;
 }
 
+.card {
+    margin-bottom: 1em;
+}
+
 .card-text {
     text-align: justify;
     font-size: 1.1em;
@@ -86,10 +90,6 @@ a:hover {
 .read-more {
     text-align: right;
     text-transform: uppercase;
-}
-
-.middle {
-    padding-top: 15vh;
 }
 
 @media (min-width: 992px) {

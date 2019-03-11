@@ -184,29 +184,27 @@ provider. There are <a href="https://docs.docker.com/machine/drivers/">many driv
 
 <p>To create a machine use the <code>create</code> command (this defaults to virtualbox in FreeBSD):</p>
 
-<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span></span><span class="gp">$</span> docker-machine create default
-<span class="go">Running pre-create checks...</span>
-<span class="go">Creating machine...</span>
-<span class="go">(default) Copying /home/omab/.docker/machine/cache/boot2docker.iso to /home/omab/.docker/machine/machines/default/boot2docker.iso...</span>
-<span class="go">(default) Creating VirtualBox VM...</span>
-<span class="go">(default) Creating SSH key...</span>
-<span class="go">(default) Starting the VM...</span>
-<span class="go">(default) Check network to re-create if needed...</span>
-<span class="go">(default) Waiting for an IP...</span>
-<span class="go">Waiting for machine to be running, this may take a few minutes...</span>
-<span class="go">Detecting operating system of created instance...</span>
-<span class="go">Waiting for SSH to be available...</span>
-<span class="go">Detecting the provisioner...</span>
-<span class="go">Provisioning with boot2docker...</span>
-<span class="go">Copying certs to the local machine directory...</span>
-<span class="go">Copying certs to the remote machine...</span>
-<span class="go">Error creating machine: Error running provisioning: Could not find matching IP for MAC address 080027669f2d</span>
+<div class="highlight"><pre class="chroma"><code class="language-shell-session" data-lang="shell-session">$ docker-machine create default
+Running pre-create checks...
+Creating machine...
+(default) Copying /home/omab/.docker/machine/cache/boot2docker.iso to /home/omab/.docker/machine/machines/default/boot2docker.iso...
+(default) Creating VirtualBox VM...
+(default) Creating SSH key...
+(default) Starting the VM...
+(default) Check network to re-create if needed...
+(default) Waiting for an IP...
+Waiting for machine to be running, this may take a few minutes...
+Detecting operating system of created instance...
+Waiting for SSH to be available...
+Detecting the provisioner...
+Provisioning with boot2docker...
+Copying certs to the local machine directory...
+Copying certs to the remote machine...
+Error creating machine: Error running provisioning: Could not find matching IP for MAC address 080027669f2d
 
-<span class="gp">$</span> docker-machine ls
-<span class="go">NAME                ACTIVE   DRIVER       STATE     URL   SWARM   DOCKER    ERRORS</span>
-<span class="go">default             -        virtualbox   Running                 Unknown   Could not find matching IP for MAC address 080027669f2d</span>
-</code></pre></div>
-
+$ docker-machine ls
+NAME                ACTIVE   DRIVER       STATE     URL   SWARM   DOCKER    ERRORS
+default             -        virtualbox   Running                 Unknown   Could not find matching IP for MAC address 080027669f2d</code></pre></div>
 
 <p><strong>Conclusion:</strong> Using purely <code>docker-machine</code> didn&rsquo;t work, the guest
 virtual machine never gets an ip from the host-only interface.</p>
@@ -222,90 +220,84 @@ since it simplifies the task.</p>
 <p>Using the following <code>Vagrantfile</code> I was able to get a <code>boot2docker</code>
 instance running:</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
-  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;AlbanMontaigu/boot2docker&quot;</span>
+<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s2">&#34;2&#34;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&#34;AlbanMontaigu/boot2docker&#34;</span>
 
-  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="s2">&quot;public_network&quot;</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="s2">&#34;public_network&#34;</span>
 
-  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="s2">&quot;forwarded_port&quot;</span><span class="p">,</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="s2">&#34;forwarded_port&#34;</span><span class="p">,</span>
                     <span class="ss">:guest</span> <span class="o">=&gt;</span> <span class="mi">2375</span><span class="p">,</span>
                     <span class="ss">:host</span> <span class="o">=&gt;</span> <span class="mi">2375</span>
 
-  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="s2">&quot;virtualbox&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">vb</span><span class="o">|</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="s2">&#34;virtualbox&#34;</span> <span class="k">do</span> <span class="o">|</span><span class="n">vb</span><span class="o">|</span>
     <span class="n">vb</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="mi">2048</span>
-    <span class="n">vb</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;boot2docker-vm&quot;</span>
+    <span class="n">vb</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;boot2docker-vm&#34;</span>
     <span class="n">vb</span><span class="o">.</span><span class="n">cpus</span> <span class="o">=</span> <span class="mi">2</span>
   <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div>
-
+<span class="k">end</span></code></pre></div>
 
 <p>Once <code>boot2docker</code> is up, all that&rsquo;s pending to do is tell
 <code>docker-machine</code> to use that instance. That&rsquo;s possible with the
 <a href="https://docs.docker.com/machine/drivers/generic/">generic driver</a>:</p>
 
-<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span></span><span class="gp">$</span> docker-machine create <span class="se">\</span>
-    --driver generic <span class="se">\</span>
-    --generic-ip-address <span class="m">127</span>.0.0.1 <span class="se">\</span>
-    --generic-ssh-port <span class="m">2222</span> <span class="se">\</span>
-    --generic-ssh-user docker <span class="se">\</span>
-    --generic-ssh-key ~/.vagrant.d/insecure_private_key <span class="se">\</span>
+<div class="highlight"><pre class="chroma"><code class="language-shell-session" data-lang="shell-session">$ docker-machine create \
+    --driver generic \
+    --generic-ip-address 127.0.0.1 \
+    --generic-ssh-port 2222 \
+    --generic-ssh-user docker \
+    --generic-ssh-key ~/.vagrant.d/insecure_private_key \
     boot2docker-vbox
-<span class="go">Running pre-create checks...</span>
-<span class="go">Creating machine...</span>
-<span class="go">(boot2docker-vbox) Importing SSH key...</span>
-<span class="go">(boot2docker-vbox) Couldn&#39;t copy SSH public key : unable to copy ssh key: open /home/omab/.vagrant.d/insecure_private_key.pub: no such file or directory</span>
-<span class="go">Waiting for machine to be running, this may take a few minutes...</span>
-<span class="go">Detecting operating system of created instance...</span>
-<span class="go">Waiting for SSH to be available...</span>
-<span class="go">Detecting the provisioner...</span>
-<span class="go">Provisioning with boot2docker...</span>
-<span class="go">Copying certs to the local machine directory...</span>
-<span class="go">Copying certs to the remote machine...</span>
-<span class="go">Setting Docker configuration on the remote daemon...</span>
-<span class="go">Checking connection to Docker...</span>
-<span class="go">Docker is up and running!</span>
-<span class="go">To see how to connect your Docker Client to the Docker Engine running on this virtual machine, run: docker-machine env boot2docker-vbox</span>
+Running pre-create checks...
+Creating machine...
+(boot2docker-vbox) Importing SSH key...
+(boot2docker-vbox) Couldn&#39;t copy SSH public key : unable to copy ssh key: open /home/omab/.vagrant.d/insecure_private_key.pub: no such file or directory
+Waiting for machine to be running, this may take a few minutes...
+Detecting operating system of created instance...
+Waiting for SSH to be available...
+Detecting the provisioner...
+Provisioning with boot2docker...
+Copying certs to the local machine directory...
+Copying certs to the remote machine...
+Setting Docker configuration on the remote daemon...
+Checking connection to Docker...
+Docker is up and running!
+To see how to connect your Docker Client to the Docker Engine running on this virtual machine, run: docker-machine env boot2docker-vbox
 
-<span class="gp">$</span> docker-machine ls
-<span class="go">NAME                ACTIVE   DRIVER    STATE     URL                        SWARM   DOCKER        ERRORS</span>
-<span class="go">boot2docker-vbox    -        generic   Running   tcp://127.0.0.1:2376               v17.07.0-ce</span>
-</code></pre></div>
-
+$ docker-machine ls
+NAME                ACTIVE   DRIVER    STATE     URL                        SWARM   DOCKER        ERRORS
+boot2docker-vbox    -        generic   Running   tcp://127.0.0.1:2376               v17.07.0-ce</code></pre></div>
 
 <p>To use it, first enable the environment:</p>
 
-<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span></span><span class="gp">#</span> this will <span class="nb">export</span> a few DOCKER_* environment variables
-<span class="gp">$</span> <span class="nb">eval</span> <span class="k">$(</span>docker-machine env boot2docker-vbox<span class="k">)</span>
+<div class="highlight"><pre class="chroma"><code class="language-shell-session" data-lang="shell-session"># this will export a few DOCKER_* environment variables
+$ eval $(docker-machine env boot2docker-vbox)
 
-<span class="gp">$</span> docker run --rm hello-world
-<span class="go">Unable to find image &#39;hello-world:latest&#39; locally</span>
-<span class="go">latest: Pulling from library/hello-world</span>
-<span class="go">b04784fba78d: Pull complete</span>
-<span class="go">Digest: sha256:f3b3b28a45160805bb16542c9531888519430e9e6d6ffc09d72261b0d26ff74f</span>
-<span class="go">Status: Downloaded newer image for hello-world:latest</span>
+$ docker run --rm hello-world
+Unable to find image &#39;hello-world:latest&#39; locally
+latest: Pulling from library/hello-world
+b04784fba78d: Pull complete
+Digest: sha256:f3b3b28a45160805bb16542c9531888519430e9e6d6ffc09d72261b0d26ff74f
+Status: Downloaded newer image for hello-world:latest
 
-<span class="go">Hello from Docker!</span>
-<span class="go">This message shows that your installation appears to be working correctly.</span>
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
 
-<span class="go">To generate this message, Docker took the following steps:</span>
-<span class="go"> 1. The Docker client contacted the Docker daemon.</span>
-<span class="go"> 2. The Docker daemon pulled the &quot;hello-world&quot; image from the Docker Hub.</span>
-<span class="go"> 3. The Docker daemon created a new container from that image which runs the</span>
-<span class="go">    executable that produces the output you are currently reading.</span>
-<span class="go"> 4. The Docker daemon streamed that output to the Docker client, which sent it</span>
-<span class="go">    to your terminal.</span>
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the &#34;hello-world&#34; image from the Docker Hub.
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
 
-<span class="go">To try something more ambitious, you can run an Ubuntu container with:</span>
-<span class="gp"> $</span> docker run -it ubuntu bash
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
 
-<span class="go">Share images, automate workflows, and more with a free Docker ID:</span>
-<span class="go"> https://cloud.docker.com/</span>
+Share images, automate workflows, and more with a free Docker ID:
+ https://cloud.docker.com/
 
-<span class="go">For more examples and ideas, visit:</span>
-<span class="go"> https://docs.docker.com/engine/userguide/</span>
-</code></pre></div>
-
+For more examples and ideas, visit:
+ https://docs.docker.com/engine/userguide/</code></pre></div>
 
 <p>Those familiar with <code>Vagrant</code> know about the port-forwarding rules,
 these rules let you expose a port in the guest to the host host. The
@@ -338,59 +330,53 @@ images.</p>
 <li>Let&rsquo;s create the machine</li>
 </ul>
 
-<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span></span><span class="gp">$</span> sudo iohyve create boot2docker 16G
-<span class="gp">$</span> sudo iohyve <span class="nb">set</span> boot2docker <span class="nv">os</span><span class="o">=</span>custom <span class="nv">loader</span><span class="o">=</span>grub-bhyve <span class="nv">ram</span><span class="o">=</span>2G
-<span class="gp">$</span> sudo iohyve iso https://github.com/boot2docker/boot2docker/releases/download/v17.07.0-ce/boot2docker.iso
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-shell-session" data-lang="shell-session">$ sudo iohyve create boot2docker 16G
+$ sudo iohyve set boot2docker os=custom loader=grub-bhyve ram=2G
+$ sudo iohyve iso https://github.com/boot2docker/boot2docker/releases/download/v17.07.0-ce/boot2docker.iso</code></pre></div>
 
 <p>We need a custom <code>device.map</code> and <code>grub.cfg</code> files to make it boot
 with the following content:</p>
 
-<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span></span><span class="gp">#</span> cat &lt;&lt;EOF &gt; /iohyve/boot2docker/device.map
-<span class="go">(hd0) /dev/zvol/zroot/iohyve/boot2docker/disk0</span>
-<span class="go">(cd0) /iohyve/ISO/boot2docker.iso/boot2docker.iso</span>
-<span class="go">EOF</span>
+<div class="highlight"><pre class="chroma"><code class="language-shell-session" data-lang="shell-session"># cat &lt;&lt;EOF &gt; /iohyve/boot2docker/device.map
+(hd0) /dev/zvol/zroot/iohyve/boot2docker/disk0
+(cd0) /iohyve/ISO/boot2docker.iso/boot2docker.iso
+EOF
 
-<span class="gp">#</span> cat &lt;&lt;EOF &gt; /iohyve/boot2docker/grub.cfg
-<span class="go">linux (cd0)/boot/vmlinuz64 loglevel=3 user=docker nomodeset norestore base</span>
-<span class="go">initrd (cd0)/boot/initrd.img</span>
-<span class="go">boot</span>
-<span class="go">EOF</span>
-</code></pre></div>
-
+# cat &lt;&lt;EOF &gt; /iohyve/boot2docker/grub.cfg
+linux (cd0)/boot/vmlinuz64 loglevel=3 user=docker nomodeset norestore base
+initrd (cd0)/boot/initrd.img
+boot
+EOF</code></pre></div>
 
 <p>With those files in place we can proceed with the rest of the setup:</p>
 
 <p><strong>Note:</strong> <code>boot2docker</code> default credentials are <code>docker:tcuser</code>.</p>
 
-<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span></span><span class="gp">$</span> sudo iohyve install boot2docker boot2docker.iso
-<span class="gp">$</span> sudo iohyve console boot2docker
-<span class="go">...</span>
-<span class="go">VM booting messages</span>
-<span class="go">...</span>
+<div class="highlight"><pre class="chroma"><code class="language-shell-session" data-lang="shell-session">$ sudo iohyve install boot2docker boot2docker.iso
+$ sudo iohyve console boot2docker
+...
+VM booting messages
+...
 
-<span class="go">Core Linux</span>
-<span class="go">boot2docker login: docker</span>
-<span class="gp">                        #</span><span class="c1">#         .</span>
-<span class="gp">                  #</span><span class="c1"># ## ##        ==</span>
-<span class="gp">               #</span><span class="c1"># ## ## ## ##    ===</span>
-<span class="go">           /&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;\___/ ===</span>
-<span class="go">      ~~~ {~~ ~~~~ ~~~ ~~~~ ~~~ ~ /  ===- ~~~</span>
-<span class="go">           \______ o           __/</span>
-<span class="go">             \    \         __/</span>
-<span class="go">              \____\_______/</span>
-<span class="go"> _                 _   ____     _            _</span>
-<span class="go">| |__   ___   ___ | |_|___ \ __| | ___   ___| | _____ _ __</span>
-<span class="go">| &#39;_ \ / _ \ / _ \| __| __) / _` |/ _ \ / __| |/ / _ \ &#39;__|</span>
-<span class="go">| |_) | (_) | (_) | |_ / __/ (_| | (_) | (__|   &lt;  __/ |</span>
-<span class="go">|_.__/ \___/ \___/ \__|_____\__,_|\___/ \___|_|\_\___|_|</span>
-<span class="go">Boot2Docker version 17.07.0-ce, build HEAD : 24e9d2f - Wed Aug 30 00:04:56 UTC 2017</span>
-<span class="go">Docker version 17.07.0-ce, build 8784753</span>
+Core Linux
+boot2docker login: docker
+                        ##         .
+                  ## ## ##        ==
+               ## ## ## ## ##    ===
+           /&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;\___/ ===
+      ~~~ {~~ ~~~~ ~~~ ~~~~ ~~~ ~ /  ===- ~~~
+           \______ o           __/
+             \    \         __/
+              \____\_______/
+ _                 _   ____     _            _
+| |__   ___   ___ | |_|___ \ __| | ___   ___| | _____ _ __
+| &#39;_ \ / _ \ / _ \| __| __) / _` |/ _ \ / __| |/ / _ \ &#39;__|
+| |_) | (_) | (_) | |_ / __/ (_| | (_) | (__|   &lt;  __/ |
+|_.__/ \___/ \___/ \__|_____\__,_|\___/ \___|_|\_\___|_|
+Boot2Docker version 17.07.0-ce, build HEAD : 24e9d2f - Wed Aug 30 00:04:56 UTC 2017
+Docker version 17.07.0-ce, build 8784753
 
-<span class="gp">docker@boot2docker:~$</span>
-</code></pre></div>
-
+docker@boot2docker:~$</code></pre></div>
 
 <ul>
 <li>Setup the persistent storage</li>
@@ -401,21 +387,17 @@ with the label <code>boot2docker-data</code> or the first <code>ext[234]</code> 
 <code>/var/lib/docker</code> and <code>/var/lib/boot2docker</code>. For that, we need to
 prepare the partition in the attached disk.</p>
 
-<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span></span><span class="gp">#</span> create a Linux partition, save and <span class="nb">exit</span>
-<span class="gp">$</span> sudo fdisk /dev/sda
-<span class="gp">$</span> sudo mkfs.ext4 /dev/sda1
-<span class="gp">$</span> sudo tune2fs -L boot2docker-data /dev/sda1
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-shell-session" data-lang="shell-session"># create a Linux partition, save and exit
+$ sudo fdisk /dev/sda
+$ sudo mkfs.ext4 /dev/sda1
+$ sudo tune2fs -L boot2docker-data /dev/sda1</code></pre></div>
 
 <p><strong>Note:</strong> exit from the <code>cu</code> console by typing <code>~~.</code> or <code>~ Ctrl+d</code></p>
 
 <p>Let&rsquo;s restart the machine:</p>
 
-<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span></span><span class="gp">$</span> sudo iohyve stop boot2docker
-<span class="gp">$</span> sudo iohyve start boot2docker
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-shell-session" data-lang="shell-session">$ sudo iohyve stop boot2docker
+$ sudo iohyve start boot2docker</code></pre></div>
 
 <p>This time, the formatted partition will be mounted and changes will be
 persisted. But first we need to tune the docker daemon a bit to work
@@ -425,32 +407,30 @@ root endpoint, but <code>root_pivot</code> doesn&rsquo;t work on <code>initrd</c
 <p>There&rsquo;s no option to pass extra parameters from <code>dockerd</code> to <code>runc</code>,
 so wrapping is the only solution at the moment:</p>
 
-<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span></span><span class="gp">$</span> sudo iohyve console boot2docker
-<span class="gp">#</span> login with docker user <span class="o">(</span>tcuser password<span class="o">)</span>
-<span class="gp">$</span> sudo -s
+<div class="highlight"><pre class="chroma"><code class="language-shell-session" data-lang="shell-session">$ sudo iohyve console boot2docker
+<span class="c1"># login with docker user (tcuser password)
+</span><span class="c1"></span>$ sudo -s
 
-<span class="gp">#</span> cat &lt;&lt;EOF &gt; /var/lib/boot2docker/etc/docker/daemon.json
-<span class="go">{</span>
-<span class="go">    &quot;default-runtime&quot;: &quot;runc-nopivot&quot;,</span>
-<span class="go">    &quot;runtimes&quot;: {</span>
-<span class="go">        &quot;runc-nopivot&quot;: {</span>
-<span class="go">            &quot;path&quot;: &quot;/var/lib/boot2docker/etc/docker/runc-nopivot.sh&quot;</span>
-<span class="go">        }</span>
-<span class="go">    }</span>
-<span class="go">}</span>
-<span class="go">EOF</span>
+<span class="c1"># cat &lt;&lt;EOF &gt; /var/lib/boot2docker/etc/docker/daemon.json
+</span><span class="c1"></span><span class="o">{</span>
+    <span class="s2">&#34;default-runtime&#34;</span>: <span class="s2">&#34;runc-nopivot&#34;</span>,
+    <span class="s2">&#34;runtimes&#34;</span>: <span class="o">{</span>
+        <span class="s2">&#34;runc-nopivot&#34;</span>: <span class="o">{</span>
+            <span class="s2">&#34;path&#34;</span>: <span class="s2">&#34;/var/lib/boot2docker/etc/docker/runc-nopivot.sh&#34;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+EOF
 
-<span class="gp">#</span> cat &lt;&lt;EOF &gt; /var/lib/boot2docker/etc/docker/runc-nopivot.sh
-<span class="gp">#</span>!/bin/sh
-<span class="go">args=\`echo &quot;\$@&quot; | sed &#39;s/create/create --no-pivot/&#39;\`</span>
-<span class="go">/usr/local/bin/docker-runc \$args</span>
-<span class="go">EOF</span>
+<span class="c1"># cat &lt;&lt;EOF &gt; /var/lib/boot2docker/etc/docker/runc-nopivot.sh
+</span><span class="c1"></span><span class="cp">#!/bin/sh
+</span><span class="cp"></span><span class="nv">args</span><span class="o">=</span><span class="se">\`</span><span class="nb">echo</span> <span class="s2">&#34;\$@&#34;</span> <span class="p">|</span> sed <span class="s1">&#39;s/create/create --no-pivot/&#39;</span><span class="se">\`</span>
+/usr/local/bin/docker-runc <span class="se">\$</span>args
+EOF
 
-<span class="gp">#</span> chmod +x /var/lib/boot2docker/etc/docker/runc-nopivot.sh
-
-<span class="gp">#</span> /etc/init.d/docker restart
-</code></pre></div>
-
+<span class="c1"># chmod +x /var/lib/boot2docker/etc/docker/runc-nopivot.sh
+</span><span class="c1"></span>
+# /etc/init.d/docker restart</code></pre></div>
 
 <p>We can proceed to connect <code>docker-machine</code> with the virtual
 machine. First grab the IP address with <code>ifconfig eth0</code> or <code>ip addr
@@ -458,52 +438,48 @@ show dev eth0</code>.</p>
 
 <p>Let&rsquo;s authorize your ssh key to make the process easier:</p>
 
-<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span></span><span class="gp">$</span> ssh-copy-id docker@192.168.1.156
+<div class="highlight"><pre class="chroma"><code class="language-shell-session" data-lang="shell-session">$ ssh-copy-id docker@192.168.1.156
 
-<span class="gp">$</span> docker-machine create <span class="se">\</span>
-    --driver generic <span class="se">\</span>
-    --generic-ip-address <span class="m">192</span>.168.1.156 <span class="se">\</span>
+$ docker-machine create \
+    --driver generic \
+    --generic-ip-address 192.168.1.156 \
     --generic-ssh-user docker
-<span class="go">    boot2docker-bhyve</span>
+    boot2docker-bhyve
 
-<span class="gp">$</span> docker-machine ls
-<span class="go">NAME                ACTIVE   DRIVER    STATE     URL                       SWARM   DOCKER        ERRORS</span>
-<span class="go">boot2docker-bhyve   -        generic   Running   tcp://192.168.1.156:2376          v17.07.0-ce</span>
-</code></pre></div>
-
+$ docker-machine ls
+NAME                ACTIVE   DRIVER    STATE     URL                       SWARM   DOCKER        ERRORS
+boot2docker-bhyve   -        generic   Running   tcp://192.168.1.156:2376          v17.07.0-ce</code></pre></div>
 
 <p>Now we can use docker:</p>
 
-<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span></span><span class="gp">$</span> <span class="nb">eval</span> <span class="k">$(</span>docker-machine env boot2docker-bhyve<span class="k">)</span>
+<div class="highlight"><pre class="chroma"><code class="language-shell-session" data-lang="shell-session">$ eval $(docker-machine env boot2docker-bhyve)
 
-<span class="gp">$</span> docker run --rm hello-world
-<span class="go">Unable to find image &#39;hello-world:latest&#39; locally</span>
-<span class="go">latest: Pulling from library/hello-world</span>
-<span class="go">b04784fba78d: Pull complete</span>
-<span class="go">Digest: sha256:f3b3b28a45160805bb16542c9531888519430e9e6d6ffc09d72261b0d26ff74f</span>
-<span class="go">Status: Downloaded newer image for hello-world:latest</span>
+$ docker run --rm hello-world
+Unable to find image &#39;hello-world:latest&#39; locally
+latest: Pulling from library/hello-world
+b04784fba78d: Pull complete
+Digest: sha256:f3b3b28a45160805bb16542c9531888519430e9e6d6ffc09d72261b0d26ff74f
+Status: Downloaded newer image for hello-world:latest
 
-<span class="go">Hello from Docker!</span>
-<span class="go">This message shows that your installation appears to be working correctly.</span>
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
 
-<span class="go">To generate this message, Docker took the following steps:</span>
-<span class="go"> 1. The Docker client contacted the Docker daemon.</span>
-<span class="go"> 2. The Docker daemon pulled the &quot;hello-world&quot; image from the Docker Hub.</span>
-<span class="go"> 3. The Docker daemon created a new container from that image which runs the</span>
-<span class="go">    executable that produces the output you are currently reading.</span>
-<span class="go"> 4. The Docker daemon streamed that output to the Docker client, which sent it</span>
-<span class="go">    to your terminal.</span>
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the &#34;hello-world&#34; image from the Docker Hub.
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
 
-<span class="go">To try something more ambitious, you can run an Ubuntu container with:</span>
-<span class="gp"> $</span> docker run -it ubuntu bash
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
 
-<span class="go">Share images, automate workflows, and more with a free Docker ID:</span>
-<span class="go"> https://cloud.docker.com/</span>
+Share images, automate workflows, and more with a free Docker ID:
+ https://cloud.docker.com/
 
-<span class="go">For more examples and ideas, visit:</span>
-<span class="go"> https://docs.docker.com/engine/userguide/</span>
-</code></pre></div>
-
+For more examples and ideas, visit:
+ https://docs.docker.com/engine/userguide/</code></pre></div>
 
 <p><strong>Conclusion:</strong> This setup works, the bridged interface makes
 interacting with the containers easier since no port-forwarding rules
@@ -548,38 +524,34 @@ at the time of this writing.</p>
 
 <p>Here&rsquo;s an example of a <code>docker-sync.yml</code> file:</p>
 
-<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="s">&quot;2&quot;</span>
-
-<span class="l l-Scalar l-Scalar-Plain">options</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">verbose</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-  <span class="l l-Scalar l-Scalar-Plain">project_root</span><span class="p p-Indicator">:</span> <span class="s">&#39;pwd&#39;</span>
-
-<span class="l l-Scalar l-Scalar-Plain">syncs</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">code-sync</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">sync_strategy</span><span class="p p-Indicator">:</span> <span class="s">&#39;rsync&#39;</span>
-    <span class="l l-Scalar l-Scalar-Plain">src</span><span class="p p-Indicator">:</span> <span class="s">&#39;.&#39;</span>
-    <span class="l l-Scalar l-Scalar-Plain">sync_host_port</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">10871</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">version<span class="p">:</span><span class="w"> </span><span class="s2">&#34;2&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>options<span class="p">:</span><span class="w">
+</span><span class="w">  </span>verbose<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>project_root<span class="p">:</span><span class="w"> </span><span class="s1">&#39;pwd&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>syncs<span class="p">:</span><span class="w">
+</span><span class="w">  </span>code-sync<span class="p">:</span><span class="w">
+</span><span class="w">    </span>sync_strategy<span class="p">:</span><span class="w"> </span><span class="s1">&#39;rsync&#39;</span><span class="w">
+</span><span class="w">    </span>src<span class="p">:</span><span class="w"> </span><span class="s1">&#39;.&#39;</span><span class="w">
+</span><span class="w">    </span>sync_host_port<span class="p">:</span><span class="w"> </span><span class="m">10871</span></code></pre></div>
 
 <p>To start the sync, just run:</p>
 
-<div class="highlight"><pre><code class="language-shell-session" data-lang="shell-session"><span></span><span class="gp">$</span> docker-sync start
-<span class="go">          ok  Starting rsync for sync code-sync</span>
-<span class="go">          ok  code-sync container not running</span>
-<span class="go">          ok  creating code-sync container</span>
-<span class="go">     command  docker run -p &#39;10871:873&#39; -v code-sync:/app_sync   -e VOLUME=/app_sync -e TZ=${TZ-`readlink /etc/localtime | sed -e &#39;s,/usr/share/zoneinfo/,,&#39;`} --name code-sync -d eugenmayer/rsync</span>
-<span class="go">          ok  code-sync: starting initial sync of /usr/home/omab/app</span>
-<span class="go">     command  rsync -ap &#39;/usr/home/omab/app&#39; rsync://192.168.1.156:10871/volume</span>
-<span class="go">          ok  Synced /usr/home/omab/app</span>
-<span class="go">      output</span>
-<span class="go">     success  Rsync server started</span>
-<span class="go">     command  rsync -ap &#39;/usr/home/omab/d/app&#39; rsync://192.168.1.156:10871/volume</span>
-<span class="go">          ok  Synced /usr/home/omab/app</span>
-<span class="go">      output</span>
-<span class="go">     success  Starting Docker-Sync in the background</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-shell-session" data-lang="shell-session">$ docker-sync start
+          ok  Starting rsync for sync code-sync
+          ok  code-sync container not running
+          ok  creating code-sync container
+     command  docker run -p &#39;10871:873&#39; -v code-sync:/app_sync   -e VOLUME=/app_sync -e TZ=${TZ-`readlink /etc/localtime | sed -e &#39;s,/usr/share/zoneinfo/,,&#39;`} --name code-sync -d eugenmayer/rsync
+          ok  code-sync: starting initial sync of /usr/home/omab/app
+     command  rsync -ap &#39;/usr/home/omab/app&#39; rsync://192.168.1.156:10871/volume
+          ok  Synced /usr/home/omab/app
+      output
+     success  Rsync server started
+     command  rsync -ap &#39;/usr/home/omab/d/app&#39; rsync://192.168.1.156:10871/volume
+          ok  Synced /usr/home/omab/app
+      output
+     success  Starting Docker-Sync in the background</code></pre></div>
 
 <h2 id="jocker-and-jocker-compose">jocker and jocker-compose</h2>
 

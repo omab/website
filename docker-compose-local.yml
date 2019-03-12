@@ -1,0 +1,39 @@
+version: "3.5"
+
+networks:
+  backend:
+    external:
+      name: ${WEBSITE_NETWORK_BACKEND:-website-network-backend}
+  frontend:
+    external:
+      name: ${WEBSITE_NETWORK_FRONTEND:-website-network-frontend}
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: files/Dockerfile-nginx
+    container_name: 'website-static-prod'
+    networks:
+      - backend
+    labels:
+      - "traefik.docker.network=backend"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host: local.matiasaguirre.com, local.matiasaguirre.net, local.matiasaguirre.dev;"
+      - "traefik.basic.port=80"
+      - "traefik.basic.protocol=http"
+
+  traefik:
+    image: traefik:1.7.6
+    container_name: 'website-traefik-prod'
+    depends_on:
+      - nginx
+    ports:
+      - 1080:1080
+      - 1443:1443
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./files/traefik/local.matiasaguirre.com/traefik.toml:/traefik.toml

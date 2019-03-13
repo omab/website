@@ -1,21 +1,11 @@
 version: "3.5"
 
-networks:
-  backend:
-    external:
-      name: ${WEBSITE_NETWORK_BACKEND:-website-network-backend}
-  frontend:
-    external:
-      name: ${WEBSITE_NETWORK_FRONTEND:-website-network-frontend}
-
 services:
   nginx:
     build:
       context: .
       dockerfile: files/Dockerfile-nginx
     container_name: 'website-static-prod'
-    networks:
-      - backend
     labels:
       - "traefik.docker.network=backend"
       - "traefik.enable=true"
@@ -28,9 +18,9 @@ services:
     container_name: 'website-traefik-prod'
     depends_on:
       - nginx
-    networks:
-      - frontend
-      - backend
+    ports:
+      - 80:80
+      - 443:443
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./files/traefik/${WEBSITE_HOST:-matiasaguirre.com}/traefik.toml:/traefik.toml

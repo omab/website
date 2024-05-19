@@ -1,2 +1,2 @@
-site/public/*
-site/.hugo_build.lock
+public/*
+.hugo_build.lock
